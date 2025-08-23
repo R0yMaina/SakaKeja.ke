@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SakaKeja.ke - Find Your Dream Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background-color: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1973&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 30px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .search-bar input, .search-bar select {
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            font-size: 16px;
+            min-width: 180px;
+        }
+        
+        .search-bar button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background: #1d4ed8;
+        }
+        
+        .properties {
+            padding: 40px 30px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            color: #1f2937;
+        }
+        
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .property-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .property-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .property-card:hover .property-image img {
+            transform: scale(1.05);
+        }
+        
+        .property-details {
+            padding: 20px;
+        }
+        
+        .property-price {
+            color: #2563eb;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .property-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+        
+        .property-location {
+            color: #6b7280;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .property-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #4b5563;
+        }
+        
+        .property-features span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .view-details {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .view-details:hover {
+            background: #1d4ed8;
+        }
+        
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        
+        .footer-section p {
+            margin-bottom: 10px;
+            color: #d1d5db;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #fbbf24;
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #4b5563;
+            color: #9ca3af;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+            }
+            
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-home"></i>
+                <span>SakaKeja.ke</span>
+            </div>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">Properties</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Login</a>
+                <a href="#">Register</a>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <h1>Find Your Dream Home in Kenya</h1>
+            <p>Discover the perfect property from our curated selection of houses, apartments, and commercial spaces across Kenya.</p>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Enter location...">
+                <select>
+                    <option>Property Type</option>
+                    <option>House</option>
+                    <option>Apartment</option>
+                    <option>Villa</option>
+                    <option>Commercial</option>
+                </select>
+                <select>
+                    <option>Price Range</option>
+                    <option>Under KES 1M</option>
+                    <option>KES 1M - 5M</option>
+                    <option>KES 5M - 10M</option>
+                    <option>Over KES 10M</option>
+                </select>
+                <button>Search</button>
+            </div>
+        </section>
+        
+        <section class="properties">
+            <h2 class="section-title">Featured Properties</h2>
+            
+            <div class="property-grid">
+                <!-- Property 1 -->
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80" alt="Luxury Villa in Karen">
+                    </div>
+                    <div class="property-details">
+                        <div class="property-price">KES 12,500,000</div>
+                        <h3 class="property-title">Luxury Villa in Karen</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Karen, Nairobi</span>
+                        </div>
+                        <div class="property-features">
+                            <span><i class="fas fa-bed"></i> 4 Bedrooms</span>
+                            <span><i class="fas fa-bath"></i> 3 Bathrooms</span>
+                            <span><i class="fas fa-ruler-combined"></i> 2500 sqft</span>
+                        </div>
+                        <a href="#" class="view-details">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Property 2 -->
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1084&q=80" alt="Modern Apartment in Kilimani">
+                    </div>
+                    <div class="property-details">
+                        <div class="property-price">KES 8,700,000</div>
+                        <h3 class="property-title">Modern Apartment in Kilimani</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Kilimani, Nairobi</span>
+                        </div>
+                        <div class="property-features">
+                            <span><i class="fas fa-bed"></i> 3 Bedrooms</span>
+                            <span><i class="fas fa-bath"></i> 2 Bathrooms</span>
+                            <span><i class="fas fa-ruler-combined"></i> 1800 sqft</span>
+                        </div>
+                        <a href="#" class="view-details">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Property 3 -->
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Beach House in Mombasa">
+                    </div>
+                    <div class="property-details">
+                        <div class="property-price">KES 25,000,000</div>
+                        <h3 class="property-title">Beach House in Mombasa</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Nyali, Mombasa</span>
+                        </div>
+                        <div class="property-features">
+                            <span><i class="fas fa-bed"></i> 5 Bedrooms</span>
+                            <span><i class="fas fa-bath"></i> 4 Bathrooms</span>
+                            <span><i class="fas fa-ruler-combined"></i> 3500 sqft</span>
+                        </div>
+                        <a href="#" class="view-details">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SakaKeja.ke</h3>
+                    <p>Kenya's premier real estate marketplace connecting buyers and sellers across the country.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-phone"></i> +254 700 123 456</p>
+                    <p><i class="fas fa-envelope"></i> info@sakakeja.ke</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#">Properties for Sale</a></p>
+                    <p><a href="#">Properties for Rent</a></p>
+                    <p><a href="#">Agents</a></p>
+                    <p><a href="#">Blog</a></p>
+                </div>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 SakaKeja.ke. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script type="text/babel">
+        // This is a simplified React-like implementation for demonstration
+        // In a real React app, you would use components and JSX
+        
+        // Function to handle search form submission
+        function handleSearch(event) {
+            event.preventDefault();
+            alert('Search functionality would be implemented in a real React app');
+        }
+        
+        // Add event listeners after the DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listener to search button
+            const searchButton = document.querySelector('.search-bar button');
+            if (searchButton) {
+                searchButton.addEventListener('click', handleSearch);
+            }
+            
+            // Add event listeners to view details buttons
+            const viewDetailsButtons = document.querySelectorAll('.view-details');
+            viewDetailsButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Property details would be shown in a real React app');
+                });
+            });
+            
+            // Add event listeners to navigation links
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Navigation would work in a real React app with React Router');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
