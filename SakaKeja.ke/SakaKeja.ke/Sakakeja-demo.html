@@ -18,53 +18,63 @@
         
         body {
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            padding: 20px;
             color: #333;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
-            background: white;
+            background: #ffffff;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
         
         header {
-            background-color: white;
-            padding: 15px 30px;
+            background-color: #f5f4f4;
+            padding: 0px 30px 25px 30px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
+            display: block;
             justify-content: space-between;
             align-items: center;
         }
-        
-        .logo {
+        .part1
+        {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #2563eb;
+            justify-content: center;
         }
-        
-        .logo i {
-            font-size: 28px;
+        .part2
+        {
+            margin-top: 20px;
         }
-        
+        .logo {
+            border: solid 0px black;
+            width:250px;
+            height:80px;
+            margin: 10px;   
+        }
+        .logo img {
+            height: 100%;
+            width: auto;
+        }   
+
         nav {
             display: flex;
             gap: 20px;
+            border: solid 0px black;
         }
         
         nav a {
             text-decoration: none;
-            color: #4b5563;
-            font-weight: 500;
+            color: #000000;
+            font-weight: bold;
+            font-size: larger;
             padding: 8px 16px;
             border-radius: 5px;
             transition: all 0.3s;
+            outline: none;
         }
         
         nav a:hover {
@@ -76,7 +86,7 @@
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1973&q=80');
             background-size: cover;
             background-position: center;
-            color: white;
+            color: #ffffff;
             padding: 80px 30px;
             text-align: center;
         }
@@ -93,38 +103,53 @@
         }
         
         .search-bar {
-            background: white;
-            padding: 20px;
+            background: rgb(255, 255, 255);
+            box-shadow: 0px 0px 15px -10px rgb(92, 91, 91);
+            padding: 10px 20px;
             border-radius: 10px;
-            max-width: 800px;
+            width: fit-content;
             margin: 0 auto;
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
             justify-content: center;
+            border-radius: 50px;
         }
-        
-        .search-bar input, .search-bar select {
+        .input
+        {
+            border: solid 3px black;
+            color: black;
+        }
+        .search-bar input{
             padding: 12px 15px;
             border: 1px solid #d1d5db;
-            border-radius: 5px;
+            border-radius: 50px;
             font-size: 16px;
-            min-width: 180px;
+            min-width: 450px;
+            outline: none;
         }
-        
+        .search-bar select {
+            border: solid 1px rgb(255, 255, 255);
+            width: 120px;
+            background-color: #ffffff;
+            outline: none;
+        }
         .search-bar button {
-            background: #2563eb;
-            color: white;
+            background: #ffffff;
+            color: rgb(0, 0, 0);
             border: none;
-            padding: 12px 25px;
+            padding: 1px 20px;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
             transition: background 0.3s;
+            border: solid 2px rgba(0, 0, 0, 0);
         }
         
         .search-bar button:hover {
-            background: #1d4ed8;
+            background: #ffffff;
+            border-bottom-width: 2px;
+            border-bottom-color: rgb(0, 0, 0);
         }
         
         .properties {
@@ -139,9 +164,10 @@
         }
         
         .property-grid {
-            display: grid;
+            display: flex;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
+            justify-content: center;
         }
         
         .property-card {
@@ -315,9 +341,9 @@
 <body>
     <div class="container">
         <header>
+           <div class="part1">
             <div class="logo">
-                <i class="fas fa-home"></i>
-                <span>SakaKeja.ke</span>
+                <img src="bitmap.png">
             </div>
             <nav>
                 <a href="#">Home</a>
@@ -327,14 +353,10 @@
                 <a href="#">Login</a>
                 <a href="#">Register</a>
             </nav>
-        </header>
-        
-        <section class="hero">
-            <h1>Find Your Dream Home in Kenya</h1>
-            <p>Discover the perfect property from our curated selection of houses, apartments, and commercial spaces across Kenya.</p>
-            
+          </div>
+           <div class="part2">
             <div class="search-bar">
-                <input type="text" placeholder="Enter location...">
+                <input class="input" type="text" placeholder="Search by location...">
                 <select>
                     <option>Property Type</option>
                     <option>House</option>
@@ -351,6 +373,12 @@
                 </select>
                 <button>Search</button>
             </div>
+              </div>
+        </header>
+        
+        <section class="hero">
+            <h1>Find Your Dream Home in Kenya</h1>
+            <p>Discover the perfect property from our curated selection of houses, apartments, and commercial spaces across Kenya.</p>
         </section>
         
         <section class="properties">
